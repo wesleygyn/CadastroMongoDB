@@ -1,0 +1,50 @@
+﻿@model CadastroMongoDB.Models.Empresa
+
+@{
+    ViewData["Title"] = "Nova Empresa";
+}
+
+<div class="text-center">
+    <font style="font-size: 30px;" class="text-center">@ViewData["Title"]</font>
+</div>
+
+<form asp-action="Create">
+
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <div class="form-group">
+
+                <button name="submit" value="submit" type="submit" class="btn btn-success">
+                    <i class="ik ik-check"></i>Salvar
+                </button>
+
+                <a asp-action="Index" name="Voltar" class="btn btn-primary"><i class="ik ik-arrow-left"></i>Voltar</a>
+
+            </div>
+        </div>
+
+        <div class="col-md-6 text-right">
+        </div>
+    </div>
+
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Cadastro de empresa</div>
+                <div class="card-body">
+                    <partial name="_EmpresaForm" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="~/js/main.js"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

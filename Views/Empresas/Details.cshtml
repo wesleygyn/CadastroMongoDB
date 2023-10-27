@@ -1,0 +1,144 @@
+﻿@model CadastroMongoDB.Models.Empresa
+@using CadastroMongoDB.Utils
+
+@{
+    ViewData["Title"] = "Detalhes da Empresa";
+}
+
+<div class="text-center">
+    <font style="font-size: 30px;" class="text-center">Detalhes da empresa @Html.DisplayFor(model => model.Fantasia)</font>
+</div>
+
+<br />
+
+<div class="text-right">
+    <div class="form-group">
+
+        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id"><i class="ik ik-edit"></i>Editar</a>
+        <a asp-action="Index" class="btn btn-primary"><i class="ik ik-arrow-left"></i>Voltar</a>
+
+    </div>
+</div>
+
+<div class="row pt-3">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Dados da empresa</div>
+            <div class="card-body">
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="cnpj" style="font-weight: bold;">CNPJ:</label><br />
+                        @Utils.FormatCNPJCPF(Model.Cnpj)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="porte" style="font-weight: bold;">Porte:</label><br />
+                        @Html.DisplayFor(model => model.Porte)
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="situacao" style="font-weight: bold;">Situação:</label><br />
+                        @if (Model.Situacao == "ATIVA")
+                        {
+                            <span class="badge rounded-pill bg-success">@Model.Situacao</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-danger">@Model.Situacao</span>
+                        }
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="nome" style="font-weight: bold;">Razão Social:</label><br />
+                        @Html.DisplayFor(model => model.Nome)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="fantasia" style="font-weight: bold;">Nome Fantasia:</label><br />
+                        @Html.DisplayFor(model => model.Fantasia)
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="telefone" style="font-weight: bold;">Telefone:</label><br />
+                        @Html.DisplayFor(model => model.Telefone)
+                    </div>
+
+                    <div class="col-md-8">
+                        <label for="email" style="font-weight: bold;">Email:</label><br />
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="cep" style="font-weight: bold;">CEP:</label><br />
+                        @Html.DisplayFor(model => model.Cep)
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="logradouro" style="font-weight: bold;">Logradouro:</label><br />
+                        @Html.DisplayFor(model => model.Logradouro)
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="complemento" style="font-weight: bold;">Complemento:</label><br />
+                        @Html.DisplayFor(model => model.Complemento)
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="numero" style="font-weight: bold;">Número:</label><br />
+                        @Html.DisplayFor(model => model.Numero)
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="bairro" style="font-weight: bold;">Bairro:</label><br />
+                        @Html.DisplayFor(model => model.Bairro)
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="municipio" style="font-weight: bold;">Cidade:</label><br />
+                        @Html.DisplayFor(model => model.Municipio)
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="uf" style="font-weight: bold;">UF:</label><br />
+                        @Html.DisplayFor(model => model.Uf)
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="cnae" style="font-weight: bold;">CNAE:</label><br />
+                        @Html.DisplayFor(model => model.Cnae)
+                    </div>
+                    <div class="col-md-9">
+                        <label for="atividade" style="font-weight: bold;">Atividade:</label><br />
+                        @Html.DisplayFor(model => model.Atividade)
+                    </div>
+                </div>
+
+                <hr>
+
+            </div>
+        </div>
+    </div>
+
+</div>

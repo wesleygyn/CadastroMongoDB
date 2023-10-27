@@ -1,0 +1,148 @@
+﻿@model IEnumerable<CadastroMongoDB.Models.Empresa>
+@using Microsoft.AspNetCore.Http
+@using CadastroMongoDB.Utils
+@inject IHttpContextAccessor httpAcc
+
+@{
+    ViewData["Title"] = "Listagem de empresas";
+}
+
+@if (TempData["alertDelete"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["alertDelete"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="text-left">
+    <div class="form-group">
+        <a class="btn btn-primary" asp-action="Create">
+            <i class="fa fa-plus" aria-hidden="true" title="Cadastar uma nova empresa">
+
+            </i> Novo
+        </a>
+    </div>
+</div>
+
+<div class="row pt-3">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Cadastro de empresas</div>
+            <div class="card-body">
+
+                <div id="dataTables_wrapper">
+
+                    <table id="empresas" class="table" style="padding: 10px;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cnpj)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fantasia)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fantasia)
+                                </th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Utils.FormatCNPJCPF(item.Cnpj)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fantasia)
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.Situacao == "ATIVA")
+                                        {
+                                            <span class="badge rounded-pill bg-success">@item.Situacao</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill bg-danger">@item.Situacao</span>
+                                        }
+
+                                    </td>
+                                    <td style="text-align: right;">
+
+                                        <a class="btn bg-transparent" asp-action="Edit" asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-pen text-warning"></i>
+                                        </a>
+                                        <a class="btn bg-transparent" asp-action="Details" asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-magnifying-glass-plus text-info"></i>
+                                        </a>
+                                        <a class="btn bg-transparent" title="Deletar"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#delete-conformation-@item.Id">
+                                            <i class="fa-solid fa-trash-can text-danger"></i>
+                                        </a>
+
+                                        @using (Html.BeginForm("Delete", "Empresas", new { id = item.Id }))
+                                        {
+                                            <!-- Janela pop up de confirmação bootstrap -->
+
+                                            <div class="modal fade" data-bs-backdrop="static" id="delete-conformation-@item.Id" tabindex="-1" role="dialog" aria-labelledby="deleteconformation">
+                                                <div class="modal-dialog modal-sm modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 text-center icon-modal-delete">
+                                                                        <i class="ik ik-alert-circle ik-4x"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 text-center">
+                                                                        <font>
+                                                                            Deseja realmente deletar a empresa @item.Fantasia?
+                                                                        </font>
+                                                                        <br />
+                                                                        <font class="font-gray">
+                                                                            Se deletar, não voltará a ver esse conteúdo!
+                                                                        </font>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 text-center">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                        &nbsp;&nbsp;&nbsp;
+                                                                        <input type="submit" class="btn btn-danger" value="Deletar" onclick="deleteData()" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+}

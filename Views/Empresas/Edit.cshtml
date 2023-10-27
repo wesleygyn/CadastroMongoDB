@@ -1,0 +1,72 @@
+﻿@model CadastroMongoDB.Models.Empresa
+
+@{
+    ViewData["Title"] = "Editar Empresa";
+}
+
+<div class="text-center">
+    <font style="font-size: 30px;" class="text-center">@ViewData["Title"]</font>
+</div>
+
+<form asp-action="Edit">
+
+    <div class="text-right">
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">
+                <i class="ik ik-check"></i>Salvar
+            </button>
+
+            <a asp-action="Index" class="btn btn-primary"><i class="ik ik-arrow-left"></i>Voltar</a>
+        </div>
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div hidden class="col-md-3">
+        <input type="hidden" asp-for="Id" />
+    </div>
+
+    <div class="row pt-3">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Editar empresa</div>
+                <div class="card-body">
+
+                    <partial name="_EmpresaForm" />
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+<script>
+    // Função para aplicar a máscara de CNPJ
+    function setDefaultCnpjValue() {
+        // Seleciona o elemento de input por ID
+        var input = document.getElementById('cnpj');
+
+        // Remove qualquer caractere não numérico
+        var cnpj = input.value.replace(/\D/g, '');
+
+        if (cnpj.length === 14) {
+            // Formata o CNPJ: XX.XXX.XXX/XXXX-XX
+            input.value = cnpj.substring(0, 2) + '.' + cnpj.substring(2, 5) + '.' + cnpj.substring(5, 8) + '/' + cnpj.substring(8, 12) + '-' + cnpj.substring(12, 14);
+        }
+
+        // Defina o atributo "readonly"
+        input.setAttribute('readonly', 'true');
+    }
+
+    // Chame a função para definir o valor padrão quando a página carregar
+    window.onload = setDefaultCnpjValue();
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
